@@ -8,37 +8,36 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
-public class CharacterCreateCommand implements SlashCommand {
+public class InitiativeCommand implements SlashCommand {
 
     private final Characters characters;
 
-    public CharacterCreateCommand(Characters characters){
+    public InitiativeCommand(Characters characters){
         this.characters = characters;
     }
 
     @Override
     public String getName() {
-        return "character-create";
+        return "initiative";
     }
 
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {
-        String memberName = event.getInteraction().getMember().get().getUsername();
-
-        String characterName = event.getOption("name")
+        Long initiative = event.getOption("initiative")
             .flatMap(ApplicationCommandInteractionOption::getValue)
-            .map(ApplicationCommandInteractionOptionValue::asString)
+            .map(ApplicationCommandInteractionOptionValue::asLong)
             .get();
 
-        Long hp = event.getOption("hp")
+        String characterName = event.getOption("name")
                 .flatMap(ApplicationCommandInteractionOption::getValue)
-                .map(ApplicationCommandInteractionOptionValue::asLong)
+                .map(ApplicationCommandInteractionOptionValue::asString)
                 .get();
 
-        var character = characters.getOrCreate(characterName, hp, memberName);
+
+        var character = characters.setInitiative(characterName, initiative);
 
         return  event.reply()
             .withEphemeral(false)
-            .withContent(String.format("Character, %s was created with %d HP", character.getName(), character.getHealthPoints()));
+            .withContent(String.format("%s initiative set as %d ", character.getName(), character.getInitiative()));
     }
 }
