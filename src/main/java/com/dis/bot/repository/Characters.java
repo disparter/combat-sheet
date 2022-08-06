@@ -95,4 +95,18 @@ public class Characters {
         result.applyDamage(dmg);
         return result;
     }
+
+    public String showHpTable() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("HP Table:::\n");
+        sb.append("```\n");
+        characters.values().stream()
+                .sorted(Comparator.comparingLong(RPGCharacter::getInitiative).reversed())
+                .forEach(character ->
+                        sb.append(String.format("\t%s\t%d/%d%n", padTo(16, character.getName()),
+                                character.getCurrentHealthPoints(),
+                                character.getHealthPoints())));
+        sb.append("```");
+        return sb.toString();
+    }
 }

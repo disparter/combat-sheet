@@ -17,6 +17,7 @@ public class RPGCharacter {
         this.name = name;
         this.healthPoints = healthPoints;
         this.currentHealthPoints = healthPoints;
+        this.initiative = 0l;
     }
 
     public void applyDamage(Long damage){
