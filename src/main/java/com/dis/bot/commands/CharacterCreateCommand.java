@@ -23,6 +23,8 @@ public class CharacterCreateCommand implements SlashCommand {
 
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {
+        String memberName = event.getInteraction().getMember().get().getUsername();
+
         String characterName = event.getOption("name")
             .flatMap(ApplicationCommandInteractionOption::getValue)
             .map(ApplicationCommandInteractionOptionValue::asString)
@@ -33,7 +35,7 @@ public class CharacterCreateCommand implements SlashCommand {
                 .map(ApplicationCommandInteractionOptionValue::asLong)
                 .get();
 
-        var character = characters.getOrCreate(characterName, hp);
+        var character = characters.getOrCreate(characterName, hp, memberName);
 
         return  event.reply()
             .withEphemeral(false)

@@ -1,0 +1,12 @@
+{
+    "name": "init",
+    "description": "Set the initiative for an existing character based on member name",
+    "options": [
+        {
+            "name": "initiative",
+            "description": "Character's Health Points",
+            "type": 4,
+            "required": true
+        }
+    ]
+}

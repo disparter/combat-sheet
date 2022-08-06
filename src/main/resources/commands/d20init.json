@@ -1,0 +1,5 @@
+{
+    "name": "roll-init",
+    "description": "Roll d20 initiative for an existing character based on member name",
+    "options": []
+}

@@ -8,17 +8,17 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
-public class InitiativeCommand implements SlashCommand {
+public class QuickInitCommand implements SlashCommand {
 
     private final Characters characters;
 
-    public InitiativeCommand(Characters characters){
+    public QuickInitCommand(Characters characters){
         this.characters = characters;
     }
 
     @Override
     public String getName() {
-        return "initiative";
+        return "init";
     }
 
     @Override
@@ -28,13 +28,8 @@ public class InitiativeCommand implements SlashCommand {
             .map(ApplicationCommandInteractionOptionValue::asLong)
             .get();
 
-        String characterName = event.getOption("name")
-                .flatMap(ApplicationCommandInteractionOption::getValue)
-                .map(ApplicationCommandInteractionOptionValue::asString)
-                .get();
-
-
-        var character = characters.setInitiativeFromMember(characterName, initiative);
+        var memberName = event.getInteraction().getMember().get().getUsername();
+        var character = characters.setInitiativeFromMember(memberName, initiative);
 
         return  event.reply()
             .withEphemeral(false)
