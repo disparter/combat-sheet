@@ -23,4 +23,12 @@ public class Characters {
         return result;
     }
 
+    public RPGCharacter setInitiative(String characterName, Long initiative) {
+        var result = characters.get(characterName);
+        if(result == null) {
+            throw new NullPointerException(characterName);
+        }
+        result.setInitiative(initiative);
+        return result;
+    }
 }
