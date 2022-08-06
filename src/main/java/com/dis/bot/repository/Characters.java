@@ -109,4 +109,10 @@ public class Characters {
         sb.append("```");
         return sb.toString();
     }
+
+    public RPGCharacter rollD20InitiativeFromMemberWithBonus(String memberName, Long bonus) {
+        var result = charactersFromMembers.get(memberName);
+        result.setInitiative(bonus + (long)new Random().nextInt(20));
+        return result;
+    }
 }

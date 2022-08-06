@@ -4,7 +4,7 @@
     "options": [
         {
             "name": "initiative",
-            "description": "Character's Health Points",
+            "description": "Character's Initiative ",
             "type": 4,
             "required": true
         }
