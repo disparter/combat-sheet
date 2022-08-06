@@ -21,17 +21,14 @@ public class Characters {
     }
 
     public RPGCharacter create(String name, Long initiative){
-        var result = characters.getOrDefault(name, new RPGCharacter());
-        result.setName(name);
+        var result = characters.getOrDefault(name, new RPGCharacter(name, 0l));
         result.setInitiative(initiative);
         characters.putIfAbsent(name, result);
         return result;
     }
 
     public RPGCharacter getOrCreate(String name, Long hp, String memberName){
-        var result = characters.getOrDefault(name, new RPGCharacter());
-        result.setHealthPoints(hp);
-        result.setName(name);
+        var result = characters.getOrDefault(name, new RPGCharacter(name, hp));
         characters.putIfAbsent(name, result);
         charactersFromMembers.putIfAbsent(memberName, result);
         return result;
