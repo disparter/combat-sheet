@@ -86,4 +86,13 @@ public class Characters {
         result.setCurrentHealthPoints(hp);
         return result;
     }
+
+    public RPGCharacter applyDamage(String characterName, Long dmg) {
+        var result = characters.get(characterName);
+        if(result == null) {
+            throw new NullPointerException(characterName);
+        }
+        result.applyDamage(dmg);
+        return result;
+    }
 }

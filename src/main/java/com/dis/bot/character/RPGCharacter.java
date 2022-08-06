@@ -19,5 +19,8 @@ public class RPGCharacter {
         this.currentHealthPoints = healthPoints;
     }
 
+    public void applyDamage(Long damage){
+        this.currentHealthPoints -= damage;
+    }
 
 }
