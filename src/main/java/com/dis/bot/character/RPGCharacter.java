@@ -8,7 +8,7 @@ public class RPGCharacter {
     String name;
     @Getter
     Long healthPoints;
-    @Getter
+    @Getter @Setter
     Long currentHealthPoints;
     @Getter @Setter
     Long initiative;

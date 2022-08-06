@@ -78,4 +78,12 @@ public class Characters {
         return sb.toString();
     }
 
+    public RPGCharacter setCurrentHP(String characterName, Long hp) {
+        var result = characters.get(characterName);
+        if(result == null) {
+            throw new NullPointerException(characterName);
+        }
+        result.setCurrentHealthPoints(hp);
+        return result;
+    }
 }
