@@ -34,7 +34,7 @@ public class InitiativeCommand implements SlashCommand {
                 .get();
 
 
-        var character = characters.setInitiativeFromMember(characterName, initiative);
+        var character = characters.setInitiative(characterName, initiative);
 
         return  event.reply()
             .withEphemeral(false)

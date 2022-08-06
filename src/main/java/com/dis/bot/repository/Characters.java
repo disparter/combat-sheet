@@ -3,6 +3,7 @@ package com.dis.bot.repository;
 import com.dis.bot.character.RPGCharacter;
 import org.springframework.stereotype.Component;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -17,6 +18,14 @@ public class Characters {
     public Characters() {
         this.charactersFromMembers = new HashMap<>();
         this.characters = new HashMap<>();
+    }
+
+    public RPGCharacter create(String name, Long initiative){
+        var result = characters.getOrDefault(name, new RPGCharacter());
+        result.setName(name);
+        result.setInitiative(initiative);
+        characters.putIfAbsent(name, result);
+        return result;
     }
 
     public RPGCharacter getOrCreate(String name, Long hp, String memberName){
@@ -47,6 +56,29 @@ public class Characters {
         var result = charactersFromMembers.get(memberName);
         result.setInitiative((long)new Random().nextInt(20));
         return result;
+    }
+
+    public String showInitiativeTable(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Initiative Table:::\n");
+        sb.append("```\n");
+        characters.values().stream()
+                .sorted(Comparator.comparingLong(RPGCharacter::getInitiative).reversed())
+                .forEach(character ->
+                        sb.append(String.format("\t%s\t%d%n", padTo(16, character.getName()), character.getInitiative())));
+        sb.append("```");
+        return sb.toString();
+    }
+
+    public String padTo(Integer maxLength, String value){
+        var trimToIndex = maxLength>value.length()?value.length():maxLength;
+        StringBuilder sb = new StringBuilder(value.substring(0, trimToIndex));
+        for(int i = 0; i < maxLength; i++) {
+            if(i >= value.length()){
+                sb.append(" ");
+            }
+        }
+        return sb.toString();
     }
 
 }
