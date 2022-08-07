@@ -1,7 +1,7 @@
 package com.dis.bot.commands.hp;
 
 import com.dis.bot.commands.SlashCommand;
-import com.dis.bot.repository.Characters;
+import com.dis.bot.service.HealthPointsService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.command.ApplicationCommandInteractionOption;
 import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
@@ -11,10 +11,10 @@ import reactor.core.publisher.Mono;
 @Component
 public class DamageCommand implements SlashCommand {
 
-    private final Characters characters;
+    private final HealthPointsService service;
 
-    public DamageCommand(Characters characters){
-        this.characters = characters;
+    public DamageCommand(HealthPointsService service){
+        this.service = service;
     }
 
     @Override
@@ -34,7 +34,7 @@ public class DamageCommand implements SlashCommand {
                 .map(ApplicationCommandInteractionOptionValue::asString)
                 .orElseThrow();
 
-        var character = characters.applyDamage(characterName, dmg);
+        var character = service.applyDamage(characterName, dmg);
 
         return  event.reply()
             .withEphemeral(false)

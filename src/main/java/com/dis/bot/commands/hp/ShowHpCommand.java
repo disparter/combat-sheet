@@ -2,6 +2,7 @@ package com.dis.bot.commands.hp;
 
 import com.dis.bot.commands.SlashCommand;
 import com.dis.bot.repository.Characters;
+import com.dis.bot.service.HealthPointsService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -9,10 +10,10 @@ import reactor.core.publisher.Mono;
 @Component
 public class ShowHpCommand implements SlashCommand {
 
-    private final Characters characters;
+    private final HealthPointsService service;
 
-    public ShowHpCommand(Characters characters){
-        this.characters = characters;
+    public ShowHpCommand(HealthPointsService service){
+        this.service = service;
     }
 
     @Override
@@ -24,6 +25,6 @@ public class ShowHpCommand implements SlashCommand {
     public Mono<Void> handle(ChatInputInteractionEvent event) {
         return  event.reply()
             .withEphemeral(false)
-            .withContent(characters.showHpTable());
+            .withContent(service.showHpTable());
     }
 }

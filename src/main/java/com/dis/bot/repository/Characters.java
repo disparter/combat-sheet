@@ -1,15 +1,14 @@
 package com.dis.bot.repository;
 
 import com.dis.bot.character.RPGCharacter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.dis.bot.tool.StringTool.padTo;
-
 @Component
+@Slf4j
 public class Characters {
 
     final Map<String, RPGCharacter> characters;
@@ -35,42 +34,10 @@ public class Characters {
         return result;
     }
 
-    public RPGCharacter setCurrentHP(String characterName, Long hp) {
-        var result = characters.get(characterName);
-        if(result == null) {
-            throw new NullPointerException(characterName);
-        }
-        result.setCurrentHealthPoints(hp);
-        return result;
-    }
-
-    public RPGCharacter applyDamage(String characterName, Long dmg) {
-        var result = characters.get(characterName);
-        if(result == null) {
-            throw new NullPointerException(characterName);
-        }
-        result.applyDamage(dmg);
-        return result;
-    }
-
-    public String showHpTable() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("HP Table:::\n");
-        sb.append("```\n");
-        characters.values().stream()
-                .sorted(Comparator.comparingLong(RPGCharacter::getInitiative).reversed())
-                .forEach(character ->
-                        sb.append(String.format("\t%s\t%d/%d%n", padTo(16, character.getName()),
-                                character.getCurrentHealthPoints(),
-                                character.getHealthPoints())));
-        sb.append("```");
-        return sb.toString();
-    }
-
-
     public RPGCharacter get(String characterName) {
         var result = characters.get(characterName);
         if(result == null) {
+            log.error("No character found with name [{}]", characterName);
             throw new NullPointerException(characterName);
         }
         return result;
@@ -79,6 +46,7 @@ public class Characters {
     public RPGCharacter getWithMemberName(String memberName) {
         var result = this.charactersFromMembers.get(memberName);
         if(result == null) {
+            log.error("No character found for member [{}]", memberName);
             throw new NullPointerException(memberName);
         }
         return result;
