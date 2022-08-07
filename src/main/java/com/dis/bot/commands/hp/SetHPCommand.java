@@ -1,6 +1,7 @@
-package com.dis.bot.commands;
+package com.dis.bot.commands.hp;
 
-import com.dis.bot.repository.Characters;
+import com.dis.bot.commands.SlashCommand;
+import com.dis.bot.service.HealthPointsService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.command.ApplicationCommandInteractionOption;
 import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
@@ -10,10 +11,10 @@ import reactor.core.publisher.Mono;
 @Component
 public class SetHPCommand implements SlashCommand {
 
-    private final Characters characters;
+    private final HealthPointsService service;
 
-    public SetHPCommand(Characters characters){
-        this.characters = characters;
+    public SetHPCommand(HealthPointsService service){
+        this.service = service;
     }
 
     @Override
@@ -26,15 +27,14 @@ public class SetHPCommand implements SlashCommand {
         Long hp = event.getOption("hp")
             .flatMap(ApplicationCommandInteractionOption::getValue)
             .map(ApplicationCommandInteractionOptionValue::asLong)
-            .get();
+            .orElseThrow();
 
         String characterName = event.getOption("name")
                 .flatMap(ApplicationCommandInteractionOption::getValue)
                 .map(ApplicationCommandInteractionOptionValue::asString)
-                .get();
+                .orElseThrow();
 
-
-        var character = characters.setCurrentHP(characterName, hp);
+        var character = service.setCurrentHP(characterName, hp);
 
         return  event.reply()
             .withEphemeral(false)

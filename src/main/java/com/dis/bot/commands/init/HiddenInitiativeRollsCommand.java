@@ -1,21 +1,25 @@
-package com.dis.bot.commands;
+package com.dis.bot.commands.init;
 
-import com.dis.bot.repository.Characters;
+import com.dis.bot.commands.SlashCommand;
+import com.dis.bot.service.CharacterService;
+import com.dis.bot.service.InitiativeService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.command.ApplicationCommandInteractionOption;
 import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
-import java.util.Random;
+import static com.dis.bot.tool.D20Roll.rollD20WithBonus;
 
 @Component
 public class HiddenInitiativeRollsCommand implements SlashCommand {
 
-    private final Characters characters;
+    private final InitiativeService service;
+    private final CharacterService characterService;
 
-    public HiddenInitiativeRollsCommand(Characters characters){
-        this.characters = characters;
+    public HiddenInitiativeRollsCommand(InitiativeService service, CharacterService characterService){
+        this.service = service;
+        this.characterService = characterService;
     }
 
     @Override
@@ -28,12 +32,12 @@ public class HiddenInitiativeRollsCommand implements SlashCommand {
         String initiatives = event.getOption("initiatives")
                 .flatMap(ApplicationCommandInteractionOption::getValue)
                 .map(ApplicationCommandInteractionOptionValue::asString)
-                .get();
+                .orElseThrow();
 
         String characterNames = event.getOption("names")
                 .flatMap(ApplicationCommandInteractionOption::getValue)
                 .map(ApplicationCommandInteractionOptionValue::asString)
-                .get();
+                .orElseThrow();
 
         var namesArray = characterNames.split(",");
         var initiativesArray = initiatives.split(",");
@@ -45,12 +49,11 @@ public class HiddenInitiativeRollsCommand implements SlashCommand {
         }
 
         for(int i = 0; i < namesArray.length; i++){
-            characters.create(namesArray[i], (long)new Random().nextInt(20) +
-                    Long.parseLong(initiativesArray[i]));
+            characterService.create(namesArray[i], rollD20WithBonus(Long.parseLong(initiativesArray[i])));
         }
 
         return  event.reply()
             .withEphemeral(true)
-            .withContent(characters.showInitiativeTable());
+            .withContent(service.showInitiativeTable());
     }
 }

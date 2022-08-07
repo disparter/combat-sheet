@@ -1,5 +1,6 @@
-package com.dis.bot.commands;
+package com.dis.bot.commands.character;
 
+import com.dis.bot.commands.SlashCommand;
 import com.dis.bot.repository.Characters;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.command.ApplicationCommandInteractionOption;
@@ -23,17 +24,17 @@ public class CharacterCreateCommand implements SlashCommand {
 
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {
-        String memberName = event.getInteraction().getMember().get().getUsername();
+        String memberName = event.getInteraction().getMember().orElseThrow().getUsername();
 
         String characterName = event.getOption("name")
             .flatMap(ApplicationCommandInteractionOption::getValue)
             .map(ApplicationCommandInteractionOptionValue::asString)
-            .get();
+            .orElseThrow();
 
         Long hp = event.getOption("hp")
                 .flatMap(ApplicationCommandInteractionOption::getValue)
                 .map(ApplicationCommandInteractionOptionValue::asLong)
-                .get();
+                .orElseThrow();
 
         var character = characters.getOrCreate(characterName, hp, memberName);
 
