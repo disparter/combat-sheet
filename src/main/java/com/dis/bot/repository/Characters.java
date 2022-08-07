@@ -21,17 +21,14 @@ public class Characters {
     }
 
     public RPGCharacter create(String name, Long initiative){
-        var result = characters.getOrDefault(name, new RPGCharacter());
-        result.setName(name);
+        var result = characters.getOrDefault(name, new RPGCharacter(name, 0l));
         result.setInitiative(initiative);
         characters.putIfAbsent(name, result);
         return result;
     }
 
     public RPGCharacter getOrCreate(String name, Long hp, String memberName){
-        var result = characters.getOrDefault(name, new RPGCharacter());
-        result.setHealthPoints(hp);
-        result.setName(name);
+        var result = characters.getOrDefault(name, new RPGCharacter(name, hp));
         characters.putIfAbsent(name, result);
         charactersFromMembers.putIfAbsent(memberName, result);
         return result;
@@ -81,4 +78,41 @@ public class Characters {
         return sb.toString();
     }
 
+    public RPGCharacter setCurrentHP(String characterName, Long hp) {
+        var result = characters.get(characterName);
+        if(result == null) {
+            throw new NullPointerException(characterName);
+        }
+        result.setCurrentHealthPoints(hp);
+        return result;
+    }
+
+    public RPGCharacter applyDamage(String characterName, Long dmg) {
+        var result = characters.get(characterName);
+        if(result == null) {
+            throw new NullPointerException(characterName);
+        }
+        result.applyDamage(dmg);
+        return result;
+    }
+
+    public String showHpTable() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("HP Table:::\n");
+        sb.append("```\n");
+        characters.values().stream()
+                .sorted(Comparator.comparingLong(RPGCharacter::getInitiative).reversed())
+                .forEach(character ->
+                        sb.append(String.format("\t%s\t%d/%d%n", padTo(16, character.getName()),
+                                character.getCurrentHealthPoints(),
+                                character.getHealthPoints())));
+        sb.append("```");
+        return sb.toString();
+    }
+
+    public RPGCharacter rollD20InitiativeFromMemberWithBonus(String memberName, Long bonus) {
+        var result = charactersFromMembers.get(memberName);
+        result.setInitiative(bonus + (long)new Random().nextInt(20));
+        return result;
+    }
 }

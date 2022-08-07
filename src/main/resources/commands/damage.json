@@ -1,6 +1,6 @@
 {
-    "name": "initiative",
-    "description": "Set the initiative for an existing character",
+    "name": "damage",
+    "description": "Decrease the current HP for the amount input for an existing character",
     "options": [
         {
             "name": "name",
@@ -9,8 +9,8 @@
             "required": true
         },
         {
-            "name": "initiative",
-            "description": "Character's Initiative",
+            "name": "dmg",
+            "description": "Value of the damage",
             "type": 4,
             "required": true
         }
