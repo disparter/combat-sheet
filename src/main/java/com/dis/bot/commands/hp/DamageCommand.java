@@ -1,5 +1,6 @@
-package com.dis.bot.commands;
+package com.dis.bot.commands.hp;
 
+import com.dis.bot.commands.SlashCommand;
 import com.dis.bot.repository.Characters;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.command.ApplicationCommandInteractionOption;
@@ -8,22 +9,22 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
-public class SetHPCommand implements SlashCommand {
+public class DamageCommand implements SlashCommand {
 
     private final Characters characters;
 
-    public SetHPCommand(Characters characters){
+    public DamageCommand(Characters characters){
         this.characters = characters;
     }
 
     @Override
     public String getName() {
-        return "set-hp";
+        return "damage";
     }
 
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {
-        Long hp = event.getOption("hp")
+        Long dmg = event.getOption("dmg")
             .flatMap(ApplicationCommandInteractionOption::getValue)
             .map(ApplicationCommandInteractionOptionValue::asLong)
             .get();
@@ -34,10 +35,10 @@ public class SetHPCommand implements SlashCommand {
                 .get();
 
 
-        var character = characters.setCurrentHP(characterName, hp);
+        var character = characters.applyDamage(characterName, dmg);
 
         return  event.reply()
             .withEphemeral(false)
-            .withContent(String.format("%s current HP set as %d ", character.getName(), character.getCurrentHealthPoints()));
+            .withContent(String.format("%s current HP now is %d ", character.getName(), character.getCurrentHealthPoints()));
     }
 }

@@ -1,5 +1,6 @@
-package com.dis.bot.commands;
+package com.dis.bot.commands.hp;
 
+import com.dis.bot.commands.SlashCommand;
 import com.dis.bot.repository.Characters;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.command.ApplicationCommandInteractionOption;
@@ -8,37 +9,36 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 @Component
-public class CharacterCreateCommand implements SlashCommand {
+public class SetHPCommand implements SlashCommand {
 
     private final Characters characters;
 
-    public CharacterCreateCommand(Characters characters){
+    public SetHPCommand(Characters characters){
         this.characters = characters;
     }
 
     @Override
     public String getName() {
-        return "character-create";
+        return "set-hp";
     }
 
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {
-        String memberName = event.getInteraction().getMember().get().getUsername();
-
-        String characterName = event.getOption("name")
+        Long hp = event.getOption("hp")
             .flatMap(ApplicationCommandInteractionOption::getValue)
-            .map(ApplicationCommandInteractionOptionValue::asString)
+            .map(ApplicationCommandInteractionOptionValue::asLong)
             .get();
 
-        Long hp = event.getOption("hp")
+        String characterName = event.getOption("name")
                 .flatMap(ApplicationCommandInteractionOption::getValue)
-                .map(ApplicationCommandInteractionOptionValue::asLong)
+                .map(ApplicationCommandInteractionOptionValue::asString)
                 .get();
 
-        var character = characters.getOrCreate(characterName, hp, memberName);
+
+        var character = characters.setCurrentHP(characterName, hp);
 
         return  event.reply()
             .withEphemeral(false)
-            .withContent(String.format("Character, %s was created with %d HP", character.getName(), character.getHealthPoints()));
+            .withContent(String.format("%s current HP set as %d ", character.getName(), character.getCurrentHealthPoints()));
     }
 }
