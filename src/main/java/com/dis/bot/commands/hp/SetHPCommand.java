@@ -27,13 +27,12 @@ public class SetHPCommand implements SlashCommand {
         Long hp = event.getOption("hp")
             .flatMap(ApplicationCommandInteractionOption::getValue)
             .map(ApplicationCommandInteractionOptionValue::asLong)
-            .get();
+            .orElseThrow();
 
         String characterName = event.getOption("name")
                 .flatMap(ApplicationCommandInteractionOption::getValue)
                 .map(ApplicationCommandInteractionOptionValue::asString)
-                .get();
-
+                .orElseThrow();
 
         var character = characters.setCurrentHP(characterName, hp);
 

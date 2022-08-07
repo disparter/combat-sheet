@@ -27,13 +27,12 @@ public class DamageCommand implements SlashCommand {
         Long dmg = event.getOption("dmg")
             .flatMap(ApplicationCommandInteractionOption::getValue)
             .map(ApplicationCommandInteractionOptionValue::asLong)
-            .get();
+            .orElseThrow();
 
         String characterName = event.getOption("name")
                 .flatMap(ApplicationCommandInteractionOption::getValue)
                 .map(ApplicationCommandInteractionOptionValue::asString)
-                .get();
-
+                .orElseThrow();
 
         var character = characters.applyDamage(characterName, dmg);
 

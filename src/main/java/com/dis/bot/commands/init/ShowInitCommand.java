@@ -1,7 +1,7 @@
 package com.dis.bot.commands.init;
 
 import com.dis.bot.commands.SlashCommand;
-import com.dis.bot.repository.Characters;
+import com.dis.bot.service.InitiativeService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -9,10 +9,10 @@ import reactor.core.publisher.Mono;
 @Component
 public class ShowInitCommand implements SlashCommand {
 
-    private final Characters characters;
+    private final InitiativeService service;
 
-    public ShowInitCommand(Characters characters){
-        this.characters = characters;
+    public ShowInitCommand(InitiativeService service){
+        this.service = service;
     }
 
     @Override
@@ -24,6 +24,6 @@ public class ShowInitCommand implements SlashCommand {
     public Mono<Void> handle(ChatInputInteractionEvent event) {
         return  event.reply()
             .withEphemeral(false)
-            .withContent(characters.showInitiativeTable());
+            .withContent(service.showInitiativeTable());
     }
 }

@@ -1,7 +1,7 @@
 package com.dis.bot.commands.init;
 
 import com.dis.bot.commands.SlashCommand;
-import com.dis.bot.repository.Characters;
+import com.dis.bot.service.InitiativeService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import discord4j.core.object.command.ApplicationCommandInteractionOption;
 import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
@@ -11,10 +11,10 @@ import reactor.core.publisher.Mono;
 @Component
 public class IniCommand implements SlashCommand {
 
-    private final Characters characters;
+    private final InitiativeService service;
 
-    public IniCommand(Characters characters){
-        this.characters = characters;
+    public IniCommand(InitiativeService service){
+        this.service = service;
     }
 
     @Override
@@ -27,10 +27,10 @@ public class IniCommand implements SlashCommand {
         Long bonus = event.getOption("initiative-bonus")
                 .flatMap(ApplicationCommandInteractionOption::getValue)
                 .map(ApplicationCommandInteractionOptionValue::asLong)
-                .get();
+                .orElseThrow();
 
-        var memberName = event.getInteraction().getMember().get().getUsername();
-        var character = characters.rollD20InitiativeFromMemberWithBonus(memberName, bonus);
+        var memberName = event.getInteraction().getMember().orElseThrow().getUsername();
+        var character = service.rollD20InitiativeFromMemberWithBonus(memberName, bonus);
 
         return  event.reply()
             .withEphemeral(false)
