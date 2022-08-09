@@ -8,6 +8,8 @@ import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import static com.dis.bot.tool.MemberNameGetter.getUsername;
+
 @Component
 public class IniCommand implements SlashCommand {
 
@@ -29,7 +31,7 @@ public class IniCommand implements SlashCommand {
                 .map(ApplicationCommandInteractionOptionValue::asLong)
                 .orElseThrow();
 
-        var memberName = event.getInteraction().getMember().orElseThrow().getUsername();
+        var memberName = getUsername(event);
         var character = service.rollD20InitiativeFromMemberWithBonus(memberName, bonus);
 
         return  event.reply()
