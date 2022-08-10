@@ -41,4 +41,11 @@ public class DndCharacters {
         }
         return result;
     }
+
+    public DNDCharacter store(String memberName, DNDCharacter dndCharacter) {
+        dndCharacters.putIfAbsent(dndCharacter.getName(), dndCharacter);
+        dndCharactersFromMembers.putIfAbsent(memberName, dndCharacter);
+        characters.store(memberName, dndCharacter);
+        return dndCharacter;
+    }
 }

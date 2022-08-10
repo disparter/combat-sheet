@@ -1,7 +1,7 @@
-package com.dis.bot.commands.dnd.character;
+package com.dis.bot.commands.age;
 
 import com.dis.bot.commands.SlashCommand;
-import com.dis.bot.repository.dnd.DndCharacters;
+import com.dis.bot.repository.age.AgeCharacters;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
@@ -11,17 +11,17 @@ import static com.dis.bot.tool.EventOptionNameGetter.getEventOptionAsLong;
 import static com.dis.bot.tool.MemberNameGetter.getUsername;
 
 @Component
-public class DNDCharacterCreateCommand implements SlashCommand {
+public class ThirteenAgeRPGCharacterCreateCommand implements SlashCommand {
 
-    private final DndCharacters characters;
+    private final AgeCharacters characters;
 
-    public DNDCharacterCreateCommand(DndCharacters characters){
+    public ThirteenAgeRPGCharacterCreateCommand(AgeCharacters characters){
         this.characters = characters;
     }
 
     @Override
     public String getName() {
-        return "dnd-character-create";
+        return "age-character-create";
     }
 
     @Override
@@ -31,14 +31,18 @@ public class DNDCharacterCreateCommand implements SlashCommand {
         String characterName = getEventOption(event, "name");
         Long hp = getEventOptionAsLong(event, "hp");
         Long ac = getEventOptionAsLong(event, "ac");
+        Long pd = getEventOptionAsLong(event, "pd");
+        Long md = getEventOptionAsLong(event, "md");
 
-        var character = characters.create(memberName, characterName, hp, ac);
+        var character = characters.create(memberName, characterName, hp, ac, pd, md);
 
         return  event.reply()
             .withEphemeral(false)
-            .withContent(String.format("DND Character, %s was created with %d HP and %d AC",
+            .withContent(String.format("13th Age RPG Character, %s was created with %d HP, %d AC, %d PD, %d MD",
                     character.getName(),
                     character.getHealthPoints(),
-                    character.getArmorClass()));
+                    character.getArmorClass(),
+                    character.getPhysicalDefense(),
+                    character.getMentalDefense()));
     }
 }
