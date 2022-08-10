@@ -3,11 +3,11 @@ package com.dis.bot.commands.character;
 import com.dis.bot.commands.SlashCommand;
 import com.dis.bot.repository.Characters;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
-import discord4j.core.object.command.ApplicationCommandInteractionOption;
-import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import static com.dis.bot.tool.EventOptionNameGetter.getEventOption;
+import static com.dis.bot.tool.EventOptionNameGetter.getEventOptionAsLong;
 import static com.dis.bot.tool.MemberNameGetter.getUsername;
 
 @Component
@@ -27,16 +27,8 @@ public class CharacterCreateCommand implements SlashCommand {
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {
         String memberName = getUsername(event);
-
-        String characterName = event.getOption("name")
-            .flatMap(ApplicationCommandInteractionOption::getValue)
-            .map(ApplicationCommandInteractionOptionValue::asString)
-            .orElseThrow();
-
-        Long hp = event.getOption("hp")
-                .flatMap(ApplicationCommandInteractionOption::getValue)
-                .map(ApplicationCommandInteractionOptionValue::asLong)
-                .orElseThrow();
+        String characterName = getEventOption(event, "name");
+        Long hp = getEventOptionAsLong(event, "hp");
 
         var character = characters.getOrCreate(memberName, characterName, hp);
 
