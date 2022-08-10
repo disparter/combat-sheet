@@ -1,4 +1,4 @@
-package com.dis.bot.commands.age;
+package com.dis.bot.commands.age.character;
 
 import com.dis.bot.commands.SlashCommand;
 import com.dis.bot.repository.age.AgeCharacters;
