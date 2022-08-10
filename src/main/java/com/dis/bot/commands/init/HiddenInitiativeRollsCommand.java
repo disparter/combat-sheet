@@ -4,12 +4,11 @@ import com.dis.bot.commands.SlashCommand;
 import com.dis.bot.service.CharacterService;
 import com.dis.bot.service.InitiativeService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
-import discord4j.core.object.command.ApplicationCommandInteractionOption;
-import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
 import static com.dis.bot.tool.D20Roll.rollD20WithBonus;
+import static com.dis.bot.tool.EventOptionNameGetter.getEventOption;
 
 @Component
 public class HiddenInitiativeRollsCommand implements SlashCommand {
@@ -29,15 +28,8 @@ public class HiddenInitiativeRollsCommand implements SlashCommand {
 
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {
-        String initiatives = event.getOption("initiatives")
-                .flatMap(ApplicationCommandInteractionOption::getValue)
-                .map(ApplicationCommandInteractionOptionValue::asString)
-                .orElseThrow();
-
-        String characterNames = event.getOption("names")
-                .flatMap(ApplicationCommandInteractionOption::getValue)
-                .map(ApplicationCommandInteractionOptionValue::asString)
-                .orElseThrow();
+        String initiatives = getEventOption(event, "initiatives");
+        String characterNames = getEventOption(event, "names");
 
         var namesArray = characterNames.split(",");
         var initiativesArray = initiatives.split(",");

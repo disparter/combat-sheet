@@ -3,10 +3,11 @@ package com.dis.bot.commands.init;
 import com.dis.bot.commands.SlashCommand;
 import com.dis.bot.service.InitiativeService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
-import discord4j.core.object.command.ApplicationCommandInteractionOption;
-import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
+
+import static com.dis.bot.tool.EventOptionNameGetter.getEventOptionAsLong;
+import static com.dis.bot.tool.MemberNameGetter.getUsername;
 
 @Component
 public class IniCommand implements SlashCommand {
@@ -24,12 +25,9 @@ public class IniCommand implements SlashCommand {
 
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {
-        Long bonus = event.getOption("initiative-bonus")
-                .flatMap(ApplicationCommandInteractionOption::getValue)
-                .map(ApplicationCommandInteractionOptionValue::asLong)
-                .orElseThrow();
+        Long bonus = getEventOptionAsLong(event, "initiative-bonus");
 
-        var memberName = event.getInteraction().getMember().orElseThrow().getUsername();
+        var memberName = getUsername(event);
         var character = service.rollD20InitiativeFromMemberWithBonus(memberName, bonus);
 
         return  event.reply()

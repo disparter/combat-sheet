@@ -3,10 +3,11 @@ package com.dis.bot.commands.init;
 import com.dis.bot.commands.SlashCommand;
 import com.dis.bot.service.InitiativeService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
-import discord4j.core.object.command.ApplicationCommandInteractionOption;
-import discord4j.core.object.command.ApplicationCommandInteractionOptionValue;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
+
+import static com.dis.bot.tool.EventOptionNameGetter.getEventOption;
+import static com.dis.bot.tool.EventOptionNameGetter.getEventOptionAsLong;
 
 @Component
 public class InitiativeCommand implements SlashCommand {
@@ -24,16 +25,8 @@ public class InitiativeCommand implements SlashCommand {
 
     @Override
     public Mono<Void> handle(ChatInputInteractionEvent event) {
-        Long initiative = event.getOption("initiative")
-            .flatMap(ApplicationCommandInteractionOption::getValue)
-            .map(ApplicationCommandInteractionOptionValue::asLong)
-            .orElseThrow();
-
-        String characterName = event.getOption("name")
-                .flatMap(ApplicationCommandInteractionOption::getValue)
-                .map(ApplicationCommandInteractionOptionValue::asString)
-                .orElseThrow();
-
+        Long initiative = getEventOptionAsLong(event, "initiative");
+        String characterName = getEventOption(event, "name");
 
         var character = service.setInitiative(characterName, initiative);
 

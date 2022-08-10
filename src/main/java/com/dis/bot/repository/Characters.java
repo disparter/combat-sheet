@@ -27,7 +27,7 @@ public class Characters {
         return result;
     }
 
-    public RPGCharacter getOrCreate(String name, Long hp, String memberName){
+    public RPGCharacter getOrCreate(String memberName, String name, Long hp){
         var result = characters.getOrDefault(name, new RPGCharacter(name, hp));
         characters.putIfAbsent(name, result);
         charactersFromMembers.putIfAbsent(memberName, result);
@@ -58,4 +58,11 @@ public class Characters {
     public Map<String, RPGCharacter> getAllSelectedCharacters() {
         return charactersFromMembers;
     }
+
+    public RPGCharacter store(String memberName, RPGCharacter character){
+        characters.putIfAbsent(character.getName(), character);
+        charactersFromMembers.putIfAbsent(memberName, character);
+        return character;
+    }
+
 }
