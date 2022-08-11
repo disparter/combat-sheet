@@ -1,6 +1,6 @@
 {
-    "name": "physical-attack",
-    "description": "Attack an existing 13th age character with a bonus against his Physical Defense. (rolls the d20)",
+    "name": "mental-attack",
+    "description": "Attack an existing 13th age character with given a bonus against his Mental Defense. (rolls d20)",
     "options": [
         {
             "name": "name",
@@ -10,7 +10,7 @@
         },
         {
             "name": "bonus",
-            "description": "Physical Attack bonus",
+            "description": "Mental  Attack bonus",
             "type": 4,
             "required": true
         }
