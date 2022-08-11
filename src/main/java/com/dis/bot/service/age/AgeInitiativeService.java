@@ -21,12 +21,13 @@ public class AgeInitiativeService {
         StringBuilder sb = new StringBuilder();
         sb.append("13th Age Initiative Table:::\n");
         sb.append("```\n");
-        sb.append("\tName\tInitiative\tAC\tPD\tMD\n");
+        sb.append("\tName        \tInitiative\t\tHP\tAC\tPD\tMD\n");
         this.characters.getAll().values().stream()
                 .sorted(Comparator.comparingLong(RPGCharacter::getInitiative).reversed())
                 .forEach(character ->
-                        sb.append(String.format("\t%s\t%d\t%d\t%d\t%d%n", padTo(16, character.getName()),
+                        sb.append(String.format("\t%s\t%d    \t\t%d\t%d\t%d\t%d%n", padTo(16, character.getName()),
                                 character.getInitiative(),
+                                character.getHealthPoints(),
                                 character.getArmorClass(),
                                 character.getPhysicalDefense(),
                                 character.getMentalDefense())));
