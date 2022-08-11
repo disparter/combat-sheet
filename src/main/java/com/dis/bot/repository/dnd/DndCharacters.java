@@ -48,4 +48,10 @@ public class DndCharacters {
         characters.store(memberName, dndCharacter);
         return dndCharacter;
     }
+
+    public DNDCharacter store(DNDCharacter dndCharacter) {
+        dndCharacters.putIfAbsent(dndCharacter.getName(), dndCharacter);
+        characters.store(dndCharacter);
+        return dndCharacter;
+    }
 }
