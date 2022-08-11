@@ -1,6 +1,6 @@
 {
     "name": "age-character-create",
-    "description": "Create new 13th Age RPG character with a given name, health points, armor class, physical defense and mental defense",
+    "description": "Create new 13th Age RPG character with a given name, hp, ac, physical defense and mental defense",
     "options": [
         {
             "name": "name",

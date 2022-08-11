@@ -1,0 +1,18 @@
+{
+    "name": "physical-attack",
+    "description": "Attack an existing dnd character with a bonus against his Armor Class. (This command rolls the d20)",
+    "options": [
+        {
+            "name": "name",
+            "description": "Character Foe's name",
+            "type": 3,
+            "required": true
+        },
+        {
+            "name": "bonus",
+            "description": "Physical Attack bonus",
+            "type": 4,
+            "required": true
+        }
+    ]
+}
