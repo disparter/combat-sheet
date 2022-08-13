@@ -1,6 +1,7 @@
 package com.dis.bot.repository;
 
 import com.dis.bot.exception.CombatNotFoundException;
+import com.dis.bot.exception.InvalidActiveCombatFoundException;
 import com.dis.bot.pojo.combat.Combat;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -30,5 +31,12 @@ public class Combats {
                 .filter(combat -> combat.getId().equals(UUID.fromString(id)))
                 .findFirst()
                 .orElseThrow(() -> new CombatNotFoundException(id));
+    }
+
+    public Combat getCurrentCombat(String channel) {
+        return combats.stream().filter(Combat::isActive)
+                .filter(combat -> combat.getChannel().equals(channel))
+                .findFirst()
+                .orElseThrow(() -> new InvalidActiveCombatFoundException(channel));
     }
 }

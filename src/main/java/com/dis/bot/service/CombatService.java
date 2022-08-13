@@ -52,4 +52,8 @@ public class CombatService {
         return combat;
 
     }
+
+    public Combat getCurrentChannelActiveCombat(String channel) {
+        return combats.getCurrentCombat(channel);
+    }
 }

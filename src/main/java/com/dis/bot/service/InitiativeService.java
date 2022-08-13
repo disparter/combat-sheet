@@ -1,6 +1,7 @@
 package com.dis.bot.service;
 
 import com.dis.bot.pojo.character.RPGCharacter;
+import com.dis.bot.pojo.combat.Combat;
 import com.dis.bot.repository.Characters;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +25,11 @@ public class InitiativeService {
         return result;
     }
 
-    public String showInitiativeTable(){
+    public String showInitiativeTable(Combat combat){
         StringBuilder sb = new StringBuilder();
-        sb.append("Initiative Table:::\n");
+        sb.append("Initiative Table ::: Combat id").append(combat.getId()).append("\n");
         sb.append("```\n");
-        this.characters.getAll().values().stream()
+        combat.getCharacters().stream()
                 .sorted(Comparator.comparingLong(RPGCharacter::getInitiative).reversed())
                 .forEach(character ->
                         sb.append(String.format("\t%s\t%d%n", padTo(16, character.getName()), character.getInitiative())));
