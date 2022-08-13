@@ -1,6 +1,6 @@
 {
-    "name": "end-combat",
-    "description": "End a combat instance",
+    "name": "combat-next-round",
+    "description": "Move to the next round a combat instance",
     "options": [
         {
             "name": "id",

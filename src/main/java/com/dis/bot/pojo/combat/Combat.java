@@ -18,4 +18,8 @@ public class Combat {
     String channel;
     LocalDateTime start;
     LocalDateTime end;
+
+    public void nextRound(){
+        setRound(this.getRound() + 1);
+    }
 }

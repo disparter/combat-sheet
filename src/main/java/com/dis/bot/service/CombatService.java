@@ -44,4 +44,12 @@ public class CombatService {
         log.info("Combat [{}] was ended", combat.getId());
         return combat;
     }
+
+    public Combat nextRound(String id) {
+        var combat = combats.get(id);
+        combat.nextRound();
+        log.info("Combat [{}] has moved to next round [{}]", combat.getId(), combat.getRound());
+        return combat;
+
+    }
 }
