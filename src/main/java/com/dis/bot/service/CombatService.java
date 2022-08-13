@@ -50,6 +50,13 @@ public class CombatService {
         combat.nextRound();
         log.info("Combat [{}] has moved to next round [{}]", combat.getId(), combat.getRound());
         return combat;
+    }
+
+    public Combat nextRoundForChannel(String channel) {
+        var combat = combats.getCurrentCombat(channel);
+        combat.nextRound();
+        log.info("Combat [{}] has moved to next round [{}]", combat.getId(), combat.getRound());
+        return combat;
 
     }
 
