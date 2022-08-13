@@ -11,8 +11,8 @@ public class Effect {
     boolean active;
     long startRound;
 
-    public void moveRound(int round){
-        if(round == duration - startRound){
+    public void moveRound(long round){
+        if(round - startRound == duration){
             this.active = false;
         }
     }

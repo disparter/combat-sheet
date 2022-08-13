@@ -23,16 +23,18 @@ public class AgeInitiativeService {
         sb.append("13th Age Initiative Table ::: Combat id [").append(combat.getId())
                 .append("] ::: Round ").append(combat.getRound()).append(" \n");
         sb.append("```\n");
-        sb.append("\tName        \tInitiative\t\tHP\tAC\tPD\tMD\n");
+        sb.append("\tName        \tInitiative\t\tHP\tAC\tPD\tMD\t Effects\n");
         this.characters.getAll().values().stream()
                 .sorted(Comparator.comparingLong(RPGCharacter::getInitiative).reversed())
                 .forEach(character ->
-                        sb.append(String.format("\t%s\t%d    \t\t%d\t%d\t%d\t%d%n", padTo(16, character.getName()),
+                        sb.append(String.format("\t%s\t%d    \t\t%d\t%d\t%d\t%d\t%s     %n",
+                                padTo(16, character.getName()),
                                 character.getInitiative(),
                                 character.getHealthPoints(),
                                 character.getArmorClass(),
                                 character.getPhysicalDefense(),
-                                character.getMentalDefense())));
+                                character.getMentalDefense(),
+                                character.getActiveEffects(combat.getRound()))));
         sb.append("```");
         return sb.toString();
     }

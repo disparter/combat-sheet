@@ -1,9 +1,11 @@
 package com.dis.bot.pojo.character;
 
+import com.dis.bot.exception.EffectNotFoundException;
 import com.dis.bot.pojo.combat.Effect;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,7 +26,7 @@ public class RPGCharacter {
         this.name = name;
         this.healthPoints = healthPoints;
         this.currentHealthPoints = healthPoints;
-        this.initiative = 0l;
+        this.initiative = 0L;
         this.effects = new HashSet<>();
     }
 
@@ -36,10 +38,25 @@ public class RPGCharacter {
         this.effects.add(effect);
     }
 
-    public void removeEffect(Effect effect){
-        if(this.effects.stream().anyMatch(ef -> ef.getDescription().equals(effect.getDescription()))){
-            effect.setActive(false);
-        }
+    public void removeEffect(String effectDescription){
+       var effect = this.effects.stream()
+               .filter(ef -> ef.getDescription().equals(effectDescription))
+               .findFirst()
+               .orElseThrow(() -> new EffectNotFoundException(effectDescription));
+
+       effect.setActive(false);
     }
 
+    public String getActiveEffects(long round){
+        StringBuilder sb = new StringBuilder();
+        effects.stream().filter(Effect::isActive)
+                .sorted(Comparator.comparing(Effect::getStartRound))
+                .forEach(effect -> sb
+                        .append("[")
+                        .append(effect.getDescription())
+                        .append("|")
+                        .append((effect.getDuration()) - (round - effect.getStartRound()))
+                        .append("]"));
+        return sb.toString();
+    }
 }

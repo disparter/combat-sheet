@@ -16,11 +16,13 @@ public class EffectService {
         this.characters = characters;
     }
 
-    public RPGCharacter applyEffect(String characterName, String effectDescription, Long duration) {
+    public RPGCharacter applyEffect(String characterName, String effectDescription,
+                                    Long duration, Long round) {
         var character = characters.get(characterName);
         var effect = Effect.builder()
                 .active(true)
                 .description(effectDescription)
+                .startRound(round)
                 .duration(duration)
                 .build();
         character.applyEffect(effect);
@@ -29,11 +31,11 @@ public class EffectService {
 
     public RPGCharacter removeEffect(String characterName, String effect) {
         var character = characters.get(characterName);
-        character.removeEffect(Effect.builder().description(effect).build());
+        character.removeEffect(effect);
         return character;
     }
 
-    public void moveRound(Set<RPGCharacter> instanceCharacters, int round){
+    public void moveRound(Set<RPGCharacter> instanceCharacters, long round){
         instanceCharacters.forEach(character -> character.getEffects().forEach(effect -> effect.moveRound(round)));
     }
 }
