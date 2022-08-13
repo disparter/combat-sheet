@@ -65,4 +65,9 @@ public class Characters {
         return character;
     }
 
+    public RPGCharacter store(RPGCharacter character){
+        characters.putIfAbsent(character.getName(), character);
+        return character;
+    }
+
 }

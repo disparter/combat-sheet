@@ -35,10 +35,10 @@ public class DNDCharacterCreateCommand implements SlashCommand {
         var character = characters.create(memberName, characterName, hp, ac);
 
         return  event.reply()
-            .withEphemeral(false)
-            .withContent(String.format("DND Character, %s was created with %d HP and %d AC",
-                    character.getName(),
-                    character.getHealthPoints(),
-                    character.getArmorClass()));
+                .withEphemeral(false)
+                .withContent(String.format("DND Character, %s was created with %d HP and %d AC",
+                        character.getName(),
+                        character.getHealthPoints(),
+                        character.getArmorClass()));
     }
 }

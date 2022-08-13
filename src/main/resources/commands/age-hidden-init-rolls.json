@@ -1,0 +1,42 @@
+{
+    "name": "age-hidden-init-rolls",
+    "description": "Roll d20 initiative + set bonus for many characters comma split and set HP,AC,PD,MD",
+    "options": [
+        {
+            "name": "names",
+            "description": "All Character's name split by comma",
+            "type": 3,
+            "required": true
+        },
+        {
+            "name": "initiatives",
+            "description": "All Character's initiatives bonus split by comma",
+            "type": 3,
+            "required": true
+        },
+        {
+            "name": "hps",
+            "description": "All Character's health points split by comma",
+            "type": 3,
+            "required": true
+        },
+        {
+            "name": "acs",
+            "description": "All Character's armor classes split by comma",
+            "type": 3,
+            "required": true
+        },
+        {
+            "name": "pds",
+            "description": "All Character's physical defenses split by comma",
+            "type": 3,
+            "required": true
+        },
+        {
+            "name": "mds",
+            "description": "All Character's mental defenses split by comma",
+            "type": 3,
+            "required": true
+        }
+    ]
+}
