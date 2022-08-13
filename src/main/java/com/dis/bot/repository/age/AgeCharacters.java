@@ -1,6 +1,7 @@
 package com.dis.bot.repository.age;
 
 import com.dis.bot.character.ThirteenthAgeRPGCharacter;
+import com.dis.bot.exception.AgeCharacterNotFoundException;
 import com.dis.bot.repository.dnd.DndCharacters;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -50,7 +51,7 @@ public class AgeCharacters {
         ThirteenthAgeRPGCharacter result = ageCharacters.get(characterName);
         if(result == null){
             log.error("No 13th age rpg character found with name [{}]", characterName);
-            throw new NullPointerException(characterName);
+            throw new AgeCharacterNotFoundException(characterName);
         }
         return result;
     }

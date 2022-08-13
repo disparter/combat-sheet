@@ -1,6 +1,8 @@
 package com.dis.bot.repository;
 
 import com.dis.bot.character.RPGCharacter;
+import com.dis.bot.exception.CharacterForMemberNotFoundException;
+import com.dis.bot.exception.CharacterNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -38,7 +40,7 @@ public class Characters {
         var result = characters.get(characterName);
         if(result == null) {
             log.error("No character found with name [{}]", characterName);
-            throw new NullPointerException(characterName);
+            throw new CharacterNotFoundException(characterName);
         }
         return result;
     }
@@ -47,7 +49,7 @@ public class Characters {
         var result = this.charactersFromMembers.get(memberName);
         if(result == null) {
             log.error("No character found for member [{}]", memberName);
-            throw new NullPointerException(memberName);
+            throw new CharacterForMemberNotFoundException(memberName);
         }
         return result;
     }
