@@ -1,6 +1,6 @@
 package com.dis.bot.service;
 
-import com.dis.bot.character.RPGCharacter;
+import com.dis.bot.pojo.character.RPGCharacter;
 import com.dis.bot.repository.Characters;
 import org.springframework.stereotype.Service;
 
