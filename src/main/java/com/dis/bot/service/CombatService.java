@@ -39,6 +39,10 @@ public class CombatService {
 
     public Combat endCombat(String id) {
         var combat = combats.get(id);
+        return endCombat(combat);
+    }
+
+    public Combat endCombat(Combat combat){
         combat.setEnd(LocalDateTime.now());
         combat.setActive(false);
         log.info("Combat [{}] was ended", combat.getId());
