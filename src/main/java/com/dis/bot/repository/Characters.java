@@ -6,10 +6,10 @@ import com.dis.bot.exception.CharacterNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Component
 @Slf4j
@@ -74,8 +74,8 @@ public class Characters {
         return character;
     }
 
-    public List<RPGCharacter> get(String[] charactersNames){
-        var result = new ArrayList<RPGCharacter>();
+    public Set<RPGCharacter> get(String[] charactersNames){
+        var result = new HashSet<RPGCharacter>();
         for (String characterName : charactersNames) {
             var character = characters.get(characterName);
             if(character == null){

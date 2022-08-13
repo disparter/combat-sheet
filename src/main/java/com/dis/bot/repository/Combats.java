@@ -37,6 +37,6 @@ public class Combats {
         return combats.stream().filter(Combat::isActive)
                 .filter(combat -> combat.getChannel().equals(channel))
                 .findFirst()
-                .orElseThrow(() -> new InvalidActiveCombatFoundException(channel));
+                .orElseThrow(InvalidActiveCombatFoundException::new);
     }
 }

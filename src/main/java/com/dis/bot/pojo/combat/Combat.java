@@ -5,14 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
 @Builder
 public class Combat {
     UUID id;
-    Collection<RPGCharacter> characters;
+    Set<RPGCharacter> characters;
     int round;
     boolean active;
     String channel;
@@ -21,5 +21,8 @@ public class Combat {
 
     public void nextRound(){
         setRound(this.getRound() + 1);
+    }
+    public void addCharacter(RPGCharacter character){
+        this.getCharacters().add(character);
     }
 }
