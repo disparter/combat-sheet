@@ -36,4 +36,10 @@ public class RPGCharacter {
         this.effects.add(effect);
     }
 
+    public void removeEffect(Effect effect){
+        if(this.effects.stream().anyMatch(ef -> ef.getDescription().equals(effect.getDescription()))){
+            effect.setActive(false);
+        }
+    }
+
 }

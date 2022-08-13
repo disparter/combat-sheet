@@ -24,5 +24,10 @@ public class EffectService {
         character.applyEffect(effect);
         return character;
     }
-    
+
+    public RPGCharacter removeEffect(String characterName, String effect) {
+        var character = characters.get(characterName);
+        character.removeEffect(Effect.builder().description(effect).build());
+        return character;
+    }
 }
