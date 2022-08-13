@@ -1,9 +1,6 @@
 package com.dis.bot.listeners;
 
 import com.dis.bot.commands.SlashCommand;
-import com.dis.bot.exception.CharacterException;
-import com.dis.bot.exception.CharacterForMemberNotFoundException;
-import com.dis.bot.exception.CharacterNotFoundException;
 import com.dis.bot.exception.CombatSheetGenericException;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
