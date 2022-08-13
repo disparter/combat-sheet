@@ -2,6 +2,7 @@ package com.dis.bot.service;
 
 import com.dis.bot.pojo.combat.Combat;
 import com.dis.bot.repository.Characters;
+import com.dis.bot.repository.Combats;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,11 @@ import java.util.UUID;
 public class CombatService {
 
     private final Characters characters;
+    private final Combats combats;
 
-    public CombatService(Characters characters){
+    public CombatService(Characters characters, Combats combats){
         this.characters = characters;
+        this.combats = combats;
     }
 
     public Combat newCombat(String[] charactersNames, String channel) {
@@ -28,8 +31,17 @@ public class CombatService {
                 .channel(channel)
                 .build();
 
+        combats.create(combat);
         log.info("Combat [{}] was created", combat.getId());
 
+        return combat;
+    }
+
+    public Combat endCombat(String id) {
+        var combat = combats.get(id);
+        combat.setEnd(LocalDateTime.now());
+        combat.setActive(false);
+        log.info("Combat [{}] was ended", combat.getId());
         return combat;
     }
 }

@@ -4,6 +4,7 @@ import com.dis.bot.commands.SlashCommand;
 import com.dis.bot.exception.CharacterException;
 import com.dis.bot.exception.CharacterForMemberNotFoundException;
 import com.dis.bot.exception.CharacterNotFoundException;
+import com.dis.bot.exception.CombatSheetGenericException;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import org.springframework.stereotype.Component;
@@ -24,7 +25,6 @@ public class SlashCommandListener {
         client.on(ChatInputInteractionEvent.class, this::handle).subscribe();
     }
 
-
     public Mono<Void> handle(ChatInputInteractionEvent event) {
         //Convert our list to a flux that we can iterate through
         return Flux.fromIterable(commands)
@@ -36,7 +36,7 @@ public class SlashCommandListener {
                 .flatMap(command -> {
                     try {
                         return command.handle(event);
-                    }catch (CharacterException e){
+                    }catch (CombatSheetGenericException e){
                         return event.reply()
                                 .withEphemeral(false)
                                 .withContent(e.getLocalizedMessage());
