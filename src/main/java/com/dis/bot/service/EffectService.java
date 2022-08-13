@@ -5,6 +5,8 @@ import com.dis.bot.pojo.combat.Effect;
 import com.dis.bot.repository.Characters;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class EffectService {
 
@@ -29,5 +31,9 @@ public class EffectService {
         var character = characters.get(characterName);
         character.removeEffect(Effect.builder().description(effect).build());
         return character;
+    }
+
+    public void moveRound(Set<RPGCharacter> instanceCharacters, int round){
+        instanceCharacters.forEach(character -> character.getEffects().forEach(effect -> effect.moveRound(round)));
     }
 }

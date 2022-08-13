@@ -15,10 +15,14 @@ public class CombatService {
 
     private final Characters characters;
     private final Combats combats;
+    private final EffectService effectService;
 
-    public CombatService(Characters characters, Combats combats){
+    public CombatService(Characters characters,
+                         Combats combats,
+                         EffectService effectService){
         this.characters = characters;
         this.combats = combats;
+        this.effectService = effectService;
     }
 
     public Combat newCombat(String[] charactersNames, String channel) {
@@ -52,6 +56,7 @@ public class CombatService {
     public Combat nextRound(String id) {
         var combat = combats.get(id);
         combat.nextRound();
+        effectService.moveRound(combat.getCharacters(), combat.getRound());
         log.info("Combat [{}] has moved to next round [{}]", combat.getId(), combat.getRound());
         return combat;
     }
@@ -59,6 +64,7 @@ public class CombatService {
     public Combat nextRoundForChannel(String channel) {
         var combat = combats.getCurrentCombat(channel);
         combat.nextRound();
+        effectService.moveRound(combat.getCharacters(), combat.getRound());
         log.info("Combat [{}] has moved to next round [{}]", combat.getId(), combat.getRound());
         return combat;
 
