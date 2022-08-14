@@ -39,7 +39,7 @@ public class GlobalCommandRegistry implements ApplicationRunner {
 
         //Get our commands json from resources as command data
         List<ApplicationCommandRequest> commands = new ArrayList<>();
-        for (Resource resource : matcher.getResources("commands/*.json")) {
+        for (Resource resource : matcher.getResources("commands/*/*.json")) {
             ApplicationCommandRequest request = d4jMapper.getObjectMapper()
                 .readValue(resource.getInputStream(), ApplicationCommandRequest.class);
 
