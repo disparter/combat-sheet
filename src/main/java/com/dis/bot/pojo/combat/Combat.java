@@ -13,7 +13,7 @@ import java.util.UUID;
 public class Combat {
     UUID id;
     Set<RPGCharacter> characters;
-    int round;
+    long round;
     boolean active;
     String channel;
     LocalDateTime start;
