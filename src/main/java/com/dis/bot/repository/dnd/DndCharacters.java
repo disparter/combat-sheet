@@ -1,6 +1,6 @@
 package com.dis.bot.repository.dnd;
 
-import com.dis.bot.character.DNDCharacter;
+import com.dis.bot.pojo.character.DNDCharacter;
 import com.dis.bot.repository.Characters;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;

@@ -1,6 +1,6 @@
 package com.dis.bot.repository.age;
 
-import com.dis.bot.character.ThirteenthAgeRPGCharacter;
+import com.dis.bot.pojo.character.ThirteenthAgeRPGCharacter;
 import com.dis.bot.exception.AgeCharacterNotFoundException;
 import com.dis.bot.repository.dnd.DndCharacters;
 import lombok.extern.slf4j.Slf4j;

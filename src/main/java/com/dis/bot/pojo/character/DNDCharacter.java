@@ -1,4 +1,4 @@
-package com.dis.bot.character;
+package com.dis.bot.pojo.character;
 
 
 import lombok.Getter;

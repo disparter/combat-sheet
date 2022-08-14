@@ -1,13 +1,16 @@
 package com.dis.bot.commands.init;
 
 import com.dis.bot.commands.SlashCommand;
+import com.dis.bot.pojo.combat.Combat;
 import com.dis.bot.service.CharacterService;
+import com.dis.bot.service.CombatService;
 import com.dis.bot.service.InitiativeService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 
+import static com.dis.bot.tool.ChannelGetter.getChannel;
 import static com.dis.bot.tool.EventOptionNameGetter.getEventOption;
 
 @Component
@@ -16,10 +19,14 @@ public class HiddenInitiativeCommand implements SlashCommand {
 
     private final InitiativeService service;
     private final CharacterService characterService;
+    private final CombatService combatService;
 
-    public HiddenInitiativeCommand(InitiativeService service, CharacterService characterService){
+    public HiddenInitiativeCommand(InitiativeService service,
+                                   CharacterService characterService,
+                                   CombatService combatService){
         this.service = service;
         this.characterService = characterService;
+        this.combatService = combatService;
     }
 
     @Override
@@ -45,9 +52,11 @@ public class HiddenInitiativeCommand implements SlashCommand {
             characterService.create(namesArray[i], Long.parseLong(initiativesArray[i]));
         }
 
+        var combat = combatService.newCombat(namesArray, getChannel(event));
+
         return  event.reply()
             .withEphemeral(true)
-            .withContent(service.showInitiativeTable());
+            .withContent(service.showInitiativeTable(combat));
     }
 
 }

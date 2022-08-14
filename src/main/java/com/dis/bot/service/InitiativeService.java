@@ -1,6 +1,7 @@
 package com.dis.bot.service;
 
-import com.dis.bot.character.RPGCharacter;
+import com.dis.bot.pojo.character.RPGCharacter;
+import com.dis.bot.pojo.combat.Combat;
 import com.dis.bot.repository.Characters;
 import org.springframework.stereotype.Service;
 
@@ -18,17 +19,18 @@ public class InitiativeService {
         this.characters = characters;
     }
 
-    public RPGCharacter setInitiative(String characterName, Long initiative) {
-        var result = this.characters.get(characterName);
-        result.setInitiative(initiative);
-        return result;
+    public RPGCharacter setInitiative(String characterName, Long initiative, Combat combat) {
+        var character = this.characters.get(characterName);
+        character.setInitiative(initiative);
+        combat.addCharacter(character);
+        return character;
     }
 
-    public String showInitiativeTable(){
+    public String showInitiativeTable(Combat combat){
         StringBuilder sb = new StringBuilder();
-        sb.append("Initiative Table:::\n");
+        sb.append("Initiative Table ::: Combat id ::: [").append(combat.getId()).append("]\n");
         sb.append("```\n");
-        this.characters.getAll().values().stream()
+        combat.getCharacters().stream()
                 .sorted(Comparator.comparingLong(RPGCharacter::getInitiative).reversed())
                 .forEach(character ->
                         sb.append(String.format("\t%s\t%d%n", padTo(16, character.getName()), character.getInitiative())));
@@ -36,20 +38,22 @@ public class InitiativeService {
         return sb.toString();
     }
 
-    public RPGCharacter setInitiativeFromMember(String memberName, Long initiative) {
-        var result = characters.getWithMemberName(memberName);
-        result.setInitiative(initiative);
-        return result;
+    public RPGCharacter setInitiativeFromMember(String memberName, Long initiative, Combat combat) {
+        var character = characters.getWithMemberName(memberName);
+        character.setInitiative(initiative);
+        combat.addCharacter(character);
+        return character;
     }
 
-    public RPGCharacter rollD20InitiativeFromMemberWithBonus(String memberName, Long bonus) {
-        var result = characters.getWithMemberName(memberName);
-        result.setInitiative(rollD20WithBonus(bonus));
-        return result;
+    public RPGCharacter rollD20InitiativeFromMemberWithBonus(String memberName, Long bonus, Combat combat) {
+        var character = characters.getWithMemberName(memberName);
+        character.setInitiative(rollD20WithBonus(bonus));
+        combat.addCharacter(character);
+        return character;
     }
 
-    public RPGCharacter rollD20InitiativeFromMember(String memberName) {
-        return rollD20InitiativeFromMemberWithBonus(memberName, 0L);
+    public RPGCharacter rollD20InitiativeFromMember(String memberName, Combat combat) {
+        return rollD20InitiativeFromMemberWithBonus(memberName, 0L, combat);
     }
 
 }

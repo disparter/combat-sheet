@@ -1,13 +1,15 @@
 package com.dis.bot.repository;
 
-import com.dis.bot.character.RPGCharacter;
+import com.dis.bot.pojo.character.RPGCharacter;
 import com.dis.bot.exception.CharacterForMemberNotFoundException;
 import com.dis.bot.exception.CharacterNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Component
 @Slf4j
@@ -70,6 +72,18 @@ public class Characters {
     public RPGCharacter store(RPGCharacter character){
         characters.putIfAbsent(character.getName(), character);
         return character;
+    }
+
+    public Set<RPGCharacter> get(String[] charactersNames){
+        var result = new HashSet<RPGCharacter>();
+        for (String characterName : charactersNames) {
+            var character = characters.get(characterName);
+            if(character == null){
+                throw new CharacterNotFoundException(characterName);
+            }
+            result.add(character);
+        }
+        return result;
     }
 
 }

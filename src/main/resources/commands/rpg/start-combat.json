@@ -1,0 +1,12 @@
+{
+    "name": "start-combat",
+    "description": "Start a new combat instance",
+    "options": [
+        {
+            "name": "names",
+            "description": "Add characters to combat split by comma (,)",
+            "type": 3,
+            "required": true
+        }
+    ]
+}

@@ -1,11 +1,11 @@
 package com.dis.bot.listeners;
 
 import com.dis.bot.commands.SlashCommand;
-import com.dis.bot.exception.CharacterException;
-import com.dis.bot.exception.CharacterForMemberNotFoundException;
-import com.dis.bot.exception.CharacterNotFoundException;
+import com.dis.bot.exception.CombatSheetGenericException;
+import com.dis.bot.exception.InvalidActiveCombatFoundException;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
+import discord4j.core.object.entity.channel.GuildChannel;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -17,13 +17,13 @@ import java.util.List;
 public class SlashCommandListener {
 
     private final Collection<SlashCommand> commands;
+    private final GatewayDiscordClient client;
 
     public SlashCommandListener(List<SlashCommand> slashCommands, GatewayDiscordClient client) {
         commands = slashCommands;
-
+        this.client = client;
         client.on(ChatInputInteractionEvent.class, this::handle).subscribe();
     }
-
 
     public Mono<Void> handle(ChatInputInteractionEvent event) {
         //Convert our list to a flux that we can iterate through
@@ -36,7 +36,11 @@ public class SlashCommandListener {
                 .flatMap(command -> {
                     try {
                         return command.handle(event);
-                    }catch (CharacterException e){
+                    }catch (InvalidActiveCombatFoundException e){
+                        return event.reply()
+                                .withEphemeral(false)
+                                .withContent(InvalidActiveCombatFoundException.getFormattedMessage());
+                    }catch (CombatSheetGenericException e){
                         return event.reply()
                                 .withEphemeral(false)
                                 .withContent(e.getLocalizedMessage());

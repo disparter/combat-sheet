@@ -1,6 +1,7 @@
 package com.dis.bot.service.age;
 
-import com.dis.bot.character.RPGCharacter;
+import com.dis.bot.pojo.character.RPGCharacter;
+import com.dis.bot.pojo.combat.Combat;
 import com.dis.bot.repository.age.AgeCharacters;
 import org.springframework.stereotype.Service;
 
@@ -17,9 +18,10 @@ public class AgeInitiativeService {
         this.characters = characters;
     }
 
-    public String showInitiativeTable(){
+    public String showInitiativeTable(Combat combat){
         StringBuilder sb = new StringBuilder();
-        sb.append("13th Age Initiative Table:::\n");
+        sb.append("13th Age Initiative Table ::: Combat id [").append(combat.getId())
+                .append("] ::: Round ").append(combat.getRound()).append(" \n");
         sb.append("```\n");
         sb.append("\tName        \tInitiative\t\tHP\tAC\tPD\tMD\n");
         this.characters.getAll().values().stream()
