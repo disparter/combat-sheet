@@ -36,8 +36,4 @@ public class SpringBot {
         return client.getRestClient();
     }
 
-    @PostConstruct
-    void started() {
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC+1"));
-    }
 }
