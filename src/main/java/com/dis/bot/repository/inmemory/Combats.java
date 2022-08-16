@@ -1,4 +1,4 @@
-package com.dis.bot.repository;
+package com.dis.bot.repository.inmemory;
 
 import com.dis.bot.exception.CombatNotFoundException;
 import com.dis.bot.exception.InvalidActiveCombatFoundException;

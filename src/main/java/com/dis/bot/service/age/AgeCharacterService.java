@@ -1,7 +1,6 @@
 package com.dis.bot.service.age;
 
-import com.dis.bot.repository.Characters;
-import com.dis.bot.repository.age.AgeCharacters;
+import com.dis.bot.repository.inmemory.age.AgeCharacters;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

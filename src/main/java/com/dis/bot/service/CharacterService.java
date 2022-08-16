@@ -1,6 +1,6 @@
 package com.dis.bot.service;
 
-import com.dis.bot.repository.Characters;
+import com.dis.bot.repository.inmemory.Characters;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

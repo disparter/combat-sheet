@@ -1,7 +1,7 @@
 package com.dis.bot.service.dnd;
 
 import com.dis.bot.pojo.character.RPGCharacter;
-import com.dis.bot.repository.dnd.DndCharacters;
+import com.dis.bot.repository.inmemory.dnd.DndCharacters;
 import org.springframework.stereotype.Service;
 
 import static com.dis.bot.tool.D20Roll.rollD20WithBonus;

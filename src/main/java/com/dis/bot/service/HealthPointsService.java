@@ -1,7 +1,7 @@
 package com.dis.bot.service;
 
 import com.dis.bot.pojo.character.RPGCharacter;
-import com.dis.bot.repository.Characters;
+import com.dis.bot.repository.inmemory.Characters;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
