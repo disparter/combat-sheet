@@ -1,18 +1,17 @@
-package com.dis.bot.model;
+package com.dis.bot.model.age;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("age_effects")
+@Document("age_powers")
 @Data
-public class AgeEffect {
+public class AgePower {
 
     @Id
     private String id;
     private String characterId;
     private String name;
-    private Long duration;
-    private Boolean active;
-    private Long startRound;
+    private Long level;
+    private String description;
 }

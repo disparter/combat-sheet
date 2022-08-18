@@ -1,4 +1,4 @@
-package com.dis.bot.model;
+package com.dis.bot.model.age;
 
 import lombok.Data;
 import org.springframework.data.annotation.Id;
