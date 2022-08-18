@@ -12,10 +12,10 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @SpringBootApplication
 @EnableMongoRepositories
-public class SpringBot {
+public class Application {
     public static void main(String[] args) {
         //Start spring application
-        new SpringApplicationBuilder(SpringBot.class)
+        new SpringApplicationBuilder(Application.class)
             .build()
             .run(args);
     }

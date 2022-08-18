@@ -1,5 +1,6 @@
 package com.dis.bot.model.age;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,11 +11,14 @@ import java.util.Set;
 
 @Document("age_characters")
 @Data
+@Builder
 public class AgeCharacter {
 
     @Id
     private String id;
     private String name;
+    private String memberId;
+    private String memberUsername;
     private String oneUniqueThing;
     private String race;
     private List<String> classes;
