@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 @Document("age_characters")
@@ -48,10 +49,11 @@ public class AgeCharacter {
     private Long currentBonusCharisma;
     private Long currentRecoveries;
 
-
+    private Map<String, Long> iconRelationships;
     private Set<AgeEffect> activeEffects;
     private List<AgeEquipment> regularEquipment;
     private List<AgeEquipment> magicItems;
     private Long goldPieces;
+
 
 }
