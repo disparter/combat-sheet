@@ -8,8 +8,10 @@ import discord4j.rest.RestClient;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
+@EnableMongoRepositories
 public class SpringBot {
     public static void main(String[] args) {
         //Start spring application
