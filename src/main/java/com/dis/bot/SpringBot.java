@@ -9,6 +9,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
 
+import javax.annotation.PostConstruct;
+import java.util.TimeZone;
+
 @SpringBootApplication
 public class SpringBot {
     public static void main(String[] args) {
@@ -32,4 +35,5 @@ public class SpringBot {
     public RestClient discordRestClient(GatewayDiscordClient client) {
         return client.getRestClient();
     }
+
 }
