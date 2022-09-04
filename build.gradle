@@ -14,10 +14,10 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.24'
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
 
-    implementation 'com.discord4j:discord4j-core:3.2.2'
+    implementation 'com.discord4j:discord4j-core:3.2.3'
     implementation 'ch.qos.logback:logback-classic:1.2.11'
-    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.2'
-    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:2.7.2'
+    implementation 'org.springframework.boot:spring-boot-starter-web:2.7.3'
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb:2.7.3'
 
     testCompileOnly 'org.projectlombok:lombok:1.18.24'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
