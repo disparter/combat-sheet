@@ -1,5 +1,5 @@
 {
-    "name": "age-full-character-create",
+    "name": "age-full-char-create",
     "description": "Start the creation of a new 13th Age RPG that will be persisted in database",
     "options": [
         {

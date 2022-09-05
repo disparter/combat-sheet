@@ -22,7 +22,7 @@ public class ThirteenAgeRPGCharacterFullCreateCommand implements SlashCommand {
 
     @Override
     public String getName() {
-        return "age-full-character-create";
+        return "age-full-char-create";
     }
 
     @Override
