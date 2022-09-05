@@ -22,33 +22,28 @@ services:
       - mongo
 
   mongo:
-    build:
-      network: bridge
-    image: mongo:4.4
+    image: mongo:5.0
+    networks:
+      - mongo-compose-network
     container_name: mongo
-    hostname: mongo
     restart: unless-stopped
     ports:
       - "27017:27017"
     env_file:
       - .env
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=$MONGO_DB_USERNAME
-      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_DB_PASSWORD
-      - MONGO_INITDB_DATABASE=$MONGO_DB
-      - MONGO_DB_USERNAME=$MONGO_DB_USERNAME
-      - MONGO_DB_PASSWORD=$MONGO_DB_PASSWORD
-      - PUID=1000
-      - PGID=1000
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_DB_ADMIN_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_DB_ADMIN_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGO_DB}
+      - MONGO_DB_USERNAME=${MONGO_DB_USERNAME}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
     volumes:
-      - $MONGO_DATA_HOST_PATH:/data/db/
+      - $MONGO_DATA_HOST_PATH:/var/mongo/data
       - $MONGO_LOG_HOST_PATH:/var/log/mongodb/
       - $MONGO_INITDB_SCRIPTS_HOST_PATH:/docker-entrypoint-initdb.d/
     command: [ "--bind_ip", "0.0.0.0" ]
 
   mongo-express:
-    build:
-      network: bridge
     image: mongo-express
     container_name: mongo-express
     env_file:
@@ -56,11 +51,15 @@ services:
     ports:
       - "8081:8081"
     environment:
-      - ME_CONFIG_MONGODB_ADMINUSERNAME=$MONGO_DB_USERNAME
-      - ME_CONFIG_MONGODB_ADMINPASSWORD=$MONGO_DB_PASSWORD
-      - ME_CONFIG_BASICAUTH_USERNAME=$MONGO_DB_USERNAME
-      - ME_CONFIG_BASICAUTH_PASSWORD=$MONGO_DB_PASSWORD
-      - ME_CONFIG_MONGODB_SERVER=$MONGO_DB
-      - ME_CONFIG_MONGODB_URL=mongo://mongo:mongo@combat-sheet:27017
+        - ME_CONFIG_MONGODB_URL=${MONGO_DB_URL}
+    networks:
+      - mongo-compose-network
     depends_on:
       - mongo
+    volumes:
+      - /var/mongo/data:/data/db
+
+
+networks:
+  mongo-compose-network:
+    driver: bridge
