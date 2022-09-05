@@ -1,7 +1,6 @@
 package com.dis.bot.commands.age.character;
 
 import com.dis.bot.commands.SlashCommand;
-import com.dis.bot.repository.inmemory.age.AgeCharacters;
 import com.dis.bot.service.age.AgeCharacterService;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import org.springframework.stereotype.Component;
