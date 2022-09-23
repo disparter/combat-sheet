@@ -1,8 +1,8 @@
 package com.dis.bot.service;
 
 import com.dis.bot.pojo.combat.Combat;
-import com.dis.bot.repository.Characters;
-import com.dis.bot.repository.Combats;
+import com.dis.bot.repository.inmemory.Characters;
+import com.dis.bot.repository.inmemory.Combats;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

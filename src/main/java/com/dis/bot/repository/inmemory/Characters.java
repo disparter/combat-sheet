@@ -1,4 +1,4 @@
-package com.dis.bot.repository;
+package com.dis.bot.repository.inmemory;
 
 import com.dis.bot.pojo.character.RPGCharacter;
 import com.dis.bot.exception.CharacterForMemberNotFoundException;

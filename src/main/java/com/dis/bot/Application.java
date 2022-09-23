@@ -8,15 +8,14 @@ import discord4j.rest.RestClient;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Bean;
-
-import javax.annotation.PostConstruct;
-import java.util.TimeZone;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
-public class SpringBot {
+@EnableMongoRepositories
+public class Application {
     public static void main(String[] args) {
         //Start spring application
-        new SpringApplicationBuilder(SpringBot.class)
+        new SpringApplicationBuilder(Application.class)
             .build()
             .run(args);
     }

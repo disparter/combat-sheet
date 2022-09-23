@@ -1,7 +1,7 @@
-package com.dis.bot.repository.dnd;
+package com.dis.bot.repository.inmemory.dnd;
 
 import com.dis.bot.pojo.character.DNDCharacter;
-import com.dis.bot.repository.Characters;
+import com.dis.bot.repository.inmemory.Characters;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -29,7 +29,8 @@ public class DndCharacters {
         dndCharacters.put(name, dndCharacter);
         dndCharactersFromMembers.putIfAbsent(memberName, dndCharacter);
         dndCharacter.setArmorClass(ac);
-        characters.store(memberName, dndCharacter);
+        var rpgCharacter = characters.store(memberName, dndCharacter);
+        log.info("rpg character was successfully stored {}", rpgCharacter.getName());
         return dndCharacter;
     }
 
@@ -45,13 +46,15 @@ public class DndCharacters {
     public DNDCharacter store(String memberName, DNDCharacter dndCharacter) {
         dndCharacters.putIfAbsent(dndCharacter.getName(), dndCharacter);
         dndCharactersFromMembers.putIfAbsent(memberName, dndCharacter);
-        characters.store(memberName, dndCharacter);
+        var rpgCharacter = characters.store(memberName, dndCharacter);
+        log.info("rpg character was successfully stored {}", rpgCharacter.getName());
         return dndCharacter;
     }
 
     public DNDCharacter store(DNDCharacter dndCharacter) {
         dndCharacters.putIfAbsent(dndCharacter.getName(), dndCharacter);
-        characters.store(dndCharacter);
+        var rpgCharacter = characters.store(dndCharacter);
+        log.info("rpg character was successfully stored {}", rpgCharacter.getName());
         return dndCharacter;
     }
 }
