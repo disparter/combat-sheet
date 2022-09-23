@@ -1,8 +1,8 @@
-package com.dis.bot.repository.age;
+package com.dis.bot.repository.inmemory.age;
 
 import com.dis.bot.pojo.character.ThirteenthAgeRPGCharacter;
 import com.dis.bot.exception.AgeCharacterNotFoundException;
-import com.dis.bot.repository.dnd.DndCharacters;
+import com.dis.bot.repository.inmemory.dnd.DndCharacters;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +31,8 @@ public class AgeCharacters {
         ageCharacter.setArmorClass(ac);
         ageCharacter.setPhysicalDefense(pd);
         ageCharacter.setMentalDefense(md);
-        dndCharacters.store(ageCharacter);
+        var dndCharacter = dndCharacters.store(ageCharacter);
+        log.info("dnd character was successfully stored {}", dndCharacter.getName());
         return ageCharacter;
     }
 
@@ -43,7 +44,8 @@ public class AgeCharacters {
         ageCharacter.setArmorClass(ac);
         ageCharacter.setPhysicalDefense(pd);
         ageCharacter.setMentalDefense(md);
-        dndCharacters.store(memberName, ageCharacter);
+        var dndCharacter = dndCharacters.store(memberName, ageCharacter);
+        log.info("dnd character was sucecssfully stored {}", dndCharacter.getName());
         return ageCharacter;
     }
 

@@ -2,7 +2,7 @@ package com.dis.bot.service.age;
 
 import com.dis.bot.pojo.character.RPGCharacter;
 import com.dis.bot.pojo.combat.Combat;
-import com.dis.bot.repository.age.AgeCharacters;
+import com.dis.bot.repository.inmemory.age.AgeCharacters;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;

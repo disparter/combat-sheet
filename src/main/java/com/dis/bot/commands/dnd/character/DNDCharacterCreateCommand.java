@@ -1,7 +1,7 @@
 package com.dis.bot.commands.dnd.character;
 
 import com.dis.bot.commands.SlashCommand;
-import com.dis.bot.repository.dnd.DndCharacters;
+import com.dis.bot.repository.inmemory.dnd.DndCharacters;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
