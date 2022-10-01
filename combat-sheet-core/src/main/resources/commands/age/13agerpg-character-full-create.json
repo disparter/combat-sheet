@@ -1,0 +1,36 @@
+{
+    "name": "age-full-char-create",
+    "description": "Start the creation of a new 13th Age RPG that will be persisted in database",
+    "options": [
+        {
+            "name": "name",
+            "description": "Character's name",
+            "type": 3,
+            "required": true
+        },
+        {
+            "name": "hp",
+            "description": "Character's Health Points",
+            "type": 4,
+            "required": true
+        },
+        {
+            "name": "ac",
+            "description": "Character's Armor Class",
+            "type": 4,
+            "required": true
+        },
+        {
+            "name": "pd",
+            "description": "Character's Physical Defense",
+            "type": 4,
+            "required": true
+        },
+        {
+            "name": "md",
+            "description": "Character's Mental Defense",
+            "type": 4,
+            "required": true
+        }
+    ]
+}

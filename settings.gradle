@@ -1,2 +1,15 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral()
+    }
+
+    plugins {
+        id "org.springframework.boot" version "${springBootVersion}"
+    }
+}
+
 rootProject.name = 'combat-sheet'
+include ':combat-sheet-core'
+include ':combat-sheet-test:combat-sheet-functional'
 

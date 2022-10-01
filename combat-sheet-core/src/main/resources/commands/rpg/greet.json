@@ -1,0 +1,13 @@
+{
+    "name": "greet",
+    "description": "Greets you",
+    "options": [
+        {
+            "name": "name",
+            "description": "Your name",
+            "type": 3,
+            "required": true
+        }
+    ]
+}
+

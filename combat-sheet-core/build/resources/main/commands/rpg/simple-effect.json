@@ -1,0 +1,24 @@
+{
+    "name": "effect-on",
+    "description": "Tag an effect on a character for N rounds",
+    "options": [
+        {
+            "name": "name",
+            "description": "Foe's name",
+            "type": 3,
+            "required": true
+        },
+        {
+            "name": "effect",
+            "description": "Text effect to be applied on a character (like status)",
+            "type": 3,
+            "required": true
+        },
+        {
+            "name": "duration",
+            "description": "Number of rounds the effect will affect the target",
+            "type": 4,
+            "required": true
+        }
+    ]
+}
