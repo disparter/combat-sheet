@@ -11,5 +11,5 @@ pluginManagement {
 
 rootProject.name = 'combat-sheet'
 include ':combat-sheet-core'
-include ':combat-sheet-test:combat-sheet-functional'
+include ':combat-sheet-test:combat-sheet-test-functional'
 

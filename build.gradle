@@ -18,14 +18,16 @@ allprojects {
     }
 
     dependencies {
-        compileOnly group: 'org.projectlombok', name:'lombok', version:"${lombokVersion}"
-        annotationProcessor group: 'org.projectlombok', name:'lombok', version:"${lombokVersion}"
+        compileOnly group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
+        annotationProcessor group: 'org.projectlombok', name:'lombok', version: "${lombokVersion}"
 
-        testCompileOnly group: 'org.projectlombok', name:'lombok', version:"${lombokVersion}"
-        testAnnotationProcessor group: 'org.projectlombok', name:'lombok', version:"${lombokVersion}"
+        implementation group: 'org.slf4j', name: 'slf4j-api', version: "${slf4jVersion}"
 
-        testImplementation group:'org.junit.jupiter', name:'junit-jupiter-api', version:"${junitVersion}"
-        testRuntimeOnly group:'org.junit.jupiter', name:'junit-jupiter-engine', version:"${junitVersion}"
+        testCompileOnly group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
+        testAnnotationProcessor group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
+
+        testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: "${junitVersion}"
+        testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: "${junitVersion}"
     }
 
 }
