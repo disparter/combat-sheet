@@ -1,7 +1,6 @@
 package com.dis.bot.commands.init;
 
 import com.dis.bot.commands.SlashCommand;
-import com.dis.bot.pojo.combat.Combat;
 import com.dis.bot.service.CharacterService;
 import com.dis.bot.service.CombatService;
 import com.dis.bot.service.InitiativeService;

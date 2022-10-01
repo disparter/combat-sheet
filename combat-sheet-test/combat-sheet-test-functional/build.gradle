@@ -1,0 +1,25 @@
+plugins {
+    id 'java'
+}
+
+dependencies {
+    testImplementation project(':combat-sheet-core')
+
+    testCompileOnly group: 'org.projectlombok', name: 'lombok', version: "${lombokVersion}"
+    testAnnotationProcessor group: 'org.projectlombok', name:'lombok', version: "${lombokVersion}"
+
+    testImplementation group:'org.junit.jupiter', name:'junit-jupiter-api', version: "${junitVersion}"
+    testRuntimeOnly group:'org.junit.jupiter', name:'junit-jupiter-engine', version: "${junitVersion}"
+
+    testImplementation group: 'org.springframework', name: 'spring-test', version: "${springFrameworkTestVersion}"
+
+    testImplementation group: 'org.slf4j', name: 'slf4j-simple', version: "${slf4jVersion}"
+
+
+    testImplementation group: 'io.cucumber', name: 'cucumber-core', version: "${cucumberVersion}"
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: "${cucumberVersion}"
+    testImplementation group: 'io.cucumber', name: 'cucumber-java8', version: "${cucumberVersion}"
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: "${cucumberVersion}"
+    testImplementation group: 'io.cucumber', name: 'cucumber-spring', version: "${cucumberVersion}"
+
+}

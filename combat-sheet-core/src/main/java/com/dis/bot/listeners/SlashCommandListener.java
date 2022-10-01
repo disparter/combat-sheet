@@ -5,7 +5,6 @@ import com.dis.bot.exception.CombatSheetGenericException;
 import com.dis.bot.exception.InvalidActiveCombatFoundException;
 import discord4j.core.GatewayDiscordClient;
 import discord4j.core.event.domain.interaction.ChatInputInteractionEvent;
-import discord4j.core.object.entity.channel.GuildChannel;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

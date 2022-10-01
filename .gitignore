@@ -2,5 +2,7 @@
 /.gradle/
 /.env
 /build/
+*/build/
+**/*/build/
 /.idea/
 *.iml
